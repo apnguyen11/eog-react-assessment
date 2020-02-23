@@ -14,7 +14,7 @@ const initialState = {
   temperatureinCelsius: 0,
   temperatureinFahrenheit: 0,
   description: '',
-  locationName: '',
+  locationName: ''
 };
 
 const toF = (c: number) => (c * 9) / 5 + 32;

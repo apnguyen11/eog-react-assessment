@@ -7,6 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '../../components/Chip';
 import { IState } from '../../store';
 
+
 const client = createClient({
   url: 'https://react.eogresources.com/graphql',
 });
@@ -62,6 +63,7 @@ const Weather = () => {
     }
     if (!data) return;
     const { getWeatherForLocation } = data;
+   
     dispatch(actions.weatherDataRecevied(getWeatherForLocation));
   }, [dispatch, data, error]);
 
