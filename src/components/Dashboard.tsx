@@ -2,6 +2,7 @@ import React from "react"
 import { Card } from "@material-ui/core"
 import Weather from '../Features/Weather/Weather';
 import Heartbeat from '../Features/Heartbeat/Heartbeat'
+import GetMetrics from '../Features/getMetrics/GetMetrics'
 
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
         <div>
             <Weather />
             <Heartbeat />
+            <GetMetrics /> 
         </div>
     )
 }
