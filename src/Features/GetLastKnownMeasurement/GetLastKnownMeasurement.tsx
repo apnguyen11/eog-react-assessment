@@ -12,8 +12,8 @@ const client = createClient({
 });
 
 const query = `
-query($metricName: string!) {
-  getLastKnownMeasurement(metricName: "waterTemp") {
+query($metricName: String!) {
+  getLastKnownMeasurement(metricName: $metricName) {
         metric
         at
         value
@@ -24,6 +24,7 @@ query($metricName: string!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
+  console.log(state, "this is the state")
   return {
     metric,
     at,
@@ -44,10 +45,14 @@ const GetLastKnownMeasurement = () => {
 
   
   const dispatch = useDispatch();
-  const { metric, at, value, unit } = useSelector(getMeasurement);
 
+  const metricName = "waterTemp"
+  const { metric, at, value, unit } = useSelector(getMeasurement);
   const [result] = useQuery({
-    query
+    query,
+    variables: {
+        metricName
+      }
   });
   const { fetching, data, error } = result;
   useEffect(() => {
@@ -63,5 +68,5 @@ const GetLastKnownMeasurement = () => {
 
   if (fetching) return <LinearProgress />;
   console.log(data, 'watertemp data')
-  return <Chip label={`Data for WaterTemp || Metric: ${metric} EpochTime: ${at} Value: ${value} Unit: ${unit}`} />;
+  return <Chip label={`Data for WaterTemp => Metric: ${metric} EpochTime: ${at} Value: ${value} Unit: ${unit}`} />;
 };
