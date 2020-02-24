@@ -41,6 +41,7 @@ export default () => {
   );
 };
 
+
 const GetLastKnownMeasurement = () => {
 
   
@@ -52,7 +53,9 @@ const GetLastKnownMeasurement = () => {
     query,
     variables: {
         metricName
-      }
+    },
+    pollInterval: 1300,
+    requestPolicy: 'network-only'
   });
   const { fetching, data, error } = result;
   useEffect(() => {
@@ -68,5 +71,5 @@ const GetLastKnownMeasurement = () => {
 
   if (fetching) return <LinearProgress />;
   console.log(data, 'watertemp data')
-  return <Chip label={`Data for WaterTemp => Metric: ${metric} EpochTime: ${at} Value: ${value} Unit: ${unit}`} />;
+  return <Chip label={`Metric: ${metric} || EpochTime: ${at} || Value: ${value} || Unit: ${unit}`} />;
 };
