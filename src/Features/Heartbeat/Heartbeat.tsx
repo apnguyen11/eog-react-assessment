@@ -46,7 +46,7 @@ const Heartbeat = () => {
     }
     if (!data) return;
     const { heartBeat } = data;
-    console.log(data, 'data888')
+    // console.log(data, 'data888')
     dispatch(actions.heartbeatDataReceived(heartBeat));
   }, [dispatch, data, error]);
 

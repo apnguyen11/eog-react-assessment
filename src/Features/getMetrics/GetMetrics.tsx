@@ -40,12 +40,12 @@ export default () => {
 const GetMetrics = () => {
 
   const dispatch = useDispatch();
-  const {   waterTemp, 
-    casingPressure, 
-    injValveOpen, 
-    flareTemp, 
-    oilTemp, 
-    tubingPressure } = useSelector(getGetMetrics);
+//   const {   waterTemp, 
+//     casingPressure, 
+//     injValveOpen, 
+//     flareTemp, 
+//     oilTemp, 
+//     tubingPressure } = useSelector(getGetMetrics);
 
   const [result] = useQuery({
     query
@@ -58,11 +58,11 @@ const GetMetrics = () => {
     }
     if (!data) return;
     const { getMetrics } = data;
-    console.log(data, 'data888')
+    // console.log(data, 'data888')
     dispatch(actions.getMetricsDataReceived(getMetrics));
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
 
-  return <Chip label={`Metrics are ${data.getMetrics.map((metric: any) => " " + metric)}`} />;
+  return <Chip label={`${data.getMetrics.map((metric: any) => " " + metric)}`} />;
 };

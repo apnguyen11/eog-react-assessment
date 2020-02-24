@@ -3,6 +3,7 @@ import { Card } from "@material-ui/core"
 import Weather from '../Features/Weather/Weather';
 import Heartbeat from '../Features/Heartbeat/Heartbeat'
 import GetMetrics from '../Features/getMetrics/GetMetrics'
+import GetLastKnownMeasurements from '../Features/GetLastKnownMeasurement/GetLastKnownMeasurement'
 
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
             <Weather />
             <Heartbeat />
             <GetMetrics /> 
+            <GetLastKnownMeasurements />
         </div>
     )
 }
