@@ -44,12 +44,13 @@ export default () => {
   );
 };
 
+let epochTimeLast30min = Date.now() - 1800000
 
 const GetMeasurements = () => {
-    let epochTimeLast30min = Date.now()
+   
     const input = {
         metricName: "waterTemp",
-        after: 1582656948000
+        after: epochTimeLast30min
    };
   
   const dispatch = useDispatch();
@@ -76,9 +77,25 @@ const GetMeasurements = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-  console.log(data, 'watertemp data')
-  console.log(Date.now(), "current epoch time")
+  console.log(data.getMeasurements[0], 'watertemp data')
+  console.log(Date.now() - 1800000, "current epoch time")
 
-  return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
-     
+  //return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
+  return (
+    <LineChart
+      width={500}
+      height={300}
+      data={data.getMeasurements}
+      margin={{
+        top: 5, right: 30, left: 20, bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="at" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+    </LineChart>
+  ); 
 };
