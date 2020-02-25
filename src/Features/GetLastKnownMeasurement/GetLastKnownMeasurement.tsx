@@ -71,5 +71,5 @@ const GetLastKnownMeasurement = () => {
 
   if (fetching) return <LinearProgress />;
   console.log(data, 'watertemp data')
-  return <Chip label={`Metric: ${metric} || EpochTime: ${at} || Value: ${value} || Unit: ${unit}`} />;
+  return <Chip label={`Metric: ${metric} || Time: ${new Date(at)} || Value: ${value} || Unit: ${unit}`} />;
 };
