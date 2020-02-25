@@ -15,8 +15,8 @@ const client = createClient({
 });
 
 const query = `
-query($metricName: String!) {
-  getLastKnownMeasurement(metricName: $metricName) {
+query($input: MeasurementQuery!) {
+  getMeasurements(input: $input) {
         metric
         at
         value
@@ -26,8 +26,8 @@ query($metricName: String!) {
 `;
 
 const getMeasurement = (state: IState) => {
-  const { metric, at, value, unit } = state.getLastKnownMeasurement;
-  
+  const { metric, at, value, unit } = state.getMeasurements;
+  console.log(state, "this is the state for getMeasurements")
   return {
     metric,
     at,
@@ -39,40 +39,45 @@ const getMeasurement = (state: IState) => {
 export default () => {
   return (
     <Provider value={client}>
-      <GetLastKnownMeasurement />
+      <GetMeasurements />
     </Provider>
   );
 };
 
 
-const GetLastKnownMeasurement = () => {
- 
+const GetMeasurements = () => {
+    let epochTimeLast30min = Date.now()
+    const input = {
+        metricName: "waterTemp",
+        after: 1582656948000
+   };
   
   const dispatch = useDispatch();
 
-  const metricName = "waterTemp"
+//   const metricName = "waterTemp"
   const { metric, at, value, unit } = useSelector(getMeasurement);
   const [result] = useQuery({
     query,
     variables: {
-        metricName
+        input
     },
-    pollInterval: 1300,
     requestPolicy: 'network-only'
   });
   const { fetching, data, error } = result;
   useEffect(() => {
     if (error) {
-      dispatch(actions.lastKnownMeasurementApiErrorReceived({ error: error.message }));
+      dispatch(actions.getMeasurementsApiErrorReceived({ error: error.message }));
       return;
     }
     if (!data) return;
-    const { getLastKnownMeasurement } = data;
+    const { getMeasurements } = data;
    
-    dispatch(actions.lastKnownMeasurementDataReceived(getLastKnownMeasurement));
+    dispatch(actions.getMeasurementsDataReceived(getMeasurements));
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
+  console.log(data, 'watertemp data')
+  console.log(Date.now(), "current epoch time")
 
   return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
      
