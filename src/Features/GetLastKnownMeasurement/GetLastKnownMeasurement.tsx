@@ -5,6 +5,9 @@ import { Provider, createClient, useQuery } from 'urql';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '../../components/Chip';
 import { IState } from '../../store';
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  } from 'recharts';
 
 
 const client = createClient({
@@ -24,7 +27,7 @@ query($metricName: String!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
-  console.log(state, "this is the state")
+  
   return {
     metric,
     at,
@@ -43,7 +46,7 @@ export default () => {
 
 
 const GetLastKnownMeasurement = () => {
-
+ 
   
   const dispatch = useDispatch();
 
@@ -70,6 +73,7 @@ const GetLastKnownMeasurement = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-  console.log(data, 'watertemp data')
+
   return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
+     
 };
