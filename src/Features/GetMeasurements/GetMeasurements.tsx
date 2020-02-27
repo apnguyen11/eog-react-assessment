@@ -79,8 +79,8 @@ const GetMeasurements = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-  console.log(data.getMeasurements[0], 'watertemp data')
-  console.log(new Date(at).toLocaleTimeString(), "local time")
+//   console.log(data.getMeasurements, 'watertemp data')
+//   console.log(new Date(at).toLocaleTimeString(), "local time")
 
   //return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
   return (
@@ -102,8 +102,7 @@ const GetMeasurements = () => {
             type = 'number'
         />
         <YAxis name="Metric" />
-        <Tooltip 
-              labelFormatter={t => new Date(t).toLocaleString()} />
+        <Tooltip labelFormatter={t => new Date(t).toLocaleString()} />
         <Legend />
         <Line type="monotone" name="Water Temperature" dataKey="value" stroke="#8884d8"  />
         </LineChart>

@@ -27,7 +27,7 @@ query($metricName: String!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
-  
+  console.log(state, 'get last known measurements state')
   return {
     metric,
     at,
@@ -57,7 +57,7 @@ const GetLastKnownMeasurement = () => {
     variables: {
         metricName
     },
-    pollInterval: 1300,
+    // pollInterval: 1300,
     requestPolicy: 'network-only'
   });
   const { fetching, data, error } = result;
@@ -73,7 +73,7 @@ const GetLastKnownMeasurement = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-
-  return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
+//   console.log(data, 'last known measurement data')
+  return <Chip label={`Metric: ${metric} Value: ${value} ${unit}`} />;
      
 };

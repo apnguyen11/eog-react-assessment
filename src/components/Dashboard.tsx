@@ -14,7 +14,7 @@ interface Props {
  export const DashBoard: React.FC<Props> = () => {
     return (
         <div>
-           
+            <GetLastKnownMeasurements />
             <GetMeasurements/>
         </div>
     )
