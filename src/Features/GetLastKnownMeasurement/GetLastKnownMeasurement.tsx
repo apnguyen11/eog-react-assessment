@@ -27,7 +27,7 @@ query($metricName: String!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
-  console.log(state, 'get last known measurements state')
+//   console.log(state, 'get last known measurements state')
   return {
     metric,
     at,
@@ -51,13 +51,13 @@ const GetLastKnownMeasurement = () => {
   const dispatch = useDispatch();
 
   const metricName = "waterTemp"
-  const { metric, at, value, unit } = useSelector(getMeasurement);
+  const { metric, value, unit } = useSelector(getMeasurement);
   const [result] = useQuery({
     query,
     variables: {
         metricName
     },
-    // pollInterval: 1300,
+    pollInterval: 1300,
     requestPolicy: 'network-only'
   });
   const { fetching, data, error } = result;

@@ -5,6 +5,8 @@ import Heartbeat from '../Features/Heartbeat/Heartbeat'
 import GetMetrics from '../Features/getMetrics/GetMetrics'
 import GetLastKnownMeasurements from '../Features/GetLastKnownMeasurement/GetLastKnownMeasurement'
 import GetMeasurements from '../Features/GetMeasurements/GetMeasurements'
+import DropDown from './DropDown/DropDown'
+
 
 
 interface Props {
@@ -14,7 +16,11 @@ interface Props {
  export const DashBoard: React.FC<Props> = () => {
     return (
         <div>
-            <GetLastKnownMeasurements />
+            
+            <div >
+                <DropDown />
+                <GetLastKnownMeasurements />
+            </div> 
             <GetMeasurements/>
         </div>
     )
