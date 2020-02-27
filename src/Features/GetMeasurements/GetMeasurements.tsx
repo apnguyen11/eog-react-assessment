@@ -84,7 +84,7 @@ const GetMeasurements = () => {
 
   //return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
   return (
-    
+ 
         <LineChart
         width={1200}
         height={600}
@@ -101,11 +101,13 @@ const GetMeasurements = () => {
             tickFormatter = {(unixTime) => moment(unixTime).format('LT')}
             type = 'number'
         />
-        <YAxis  />
-        <Tooltip />
+        <YAxis name="Metric" />
+        <Tooltip 
+              labelFormatter={t => new Date(t).toLocaleString()} />
         <Legend />
-        <Line type="monotone" dataKey="value" stroke="#8884d8"  />
+        <Line type="monotone" name="Water Temperature" dataKey="value" stroke="#8884d8"  />
         </LineChart>
+        
   
   ); 
 };
