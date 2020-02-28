@@ -29,8 +29,9 @@ query($input: MeasurementQuery!) {
 const getMeasurement = (state: IState) => {
 // //   const { metric, at, value, unit } = state.getMeasurements;
 //   console.log(state, "this is the state for getMeasurements")
+const metricSelected = state.MetricReducer.metric
   return {
-    state
+    metricSelected
   };
 };
 
@@ -45,16 +46,14 @@ export default () => {
 let epochTimeLast30min = Date.now() - 1800000
 
 const GetMeasurements = () => {
-   
+    const { metricSelected } = useSelector(getMeasurement);
     const input = {
-        metricName: "waterTemp",
+        metricName: `${metricSelected}`,
         after: epochTimeLast30min
     };
   
   const dispatch = useDispatch();
-
-//   const metricName = "waterTemp"
-  const { state } = useSelector(getMeasurement);
+  
   const [result] = useQuery({
     query,
     pollInterval: 1300,

@@ -1,7 +1,6 @@
-
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 
-export type getDropDown = {
+export type Metric = {
   metric: string
 };
 
@@ -11,15 +10,17 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'getDropDown',
+  name: 'getMetric',
   initialState,
   reducers: {
-    lastKnownMeasurementDataReceived: (state, action: PayloadAction<getDropDown>) => {
-      const { metric} = action.payload;
-      state.metric = metric;
+    GetTheMetric: (state, action: PayloadAction<Metric>) => {
+        const metric  = action.payload;
+        // console.log(action, 'this is action!!')
+      state.metric = `${metric}` 
     },
   },
 });
 
 export const reducer = slice.reducer;
 export const actions = slice.actions;
+

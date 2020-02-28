@@ -3,34 +3,35 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '../../store';
+import { connect } from 'react-redux';
+import {Metric, actions} from './reducer'
 
-interface DropDownValue {
-    metric: string
+const getMetric = (state: IState) => {
+  // console.log(actions, 'these are actions')
+  return {
+    state
   };
-
-const CHOOSEMETRIC = "CHOOSEMETRIC"
-
-interface SetMetricAction {
-  type: typeof CHOOSEMETRIC;
-  metric: DropDownValue
-}
+};
 
 
 
-
-
-
-
-export default function SimpleMenu() {
+ function SimpleMenu(props: any) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+ 
+  const dispatch = useDispatch();
+  const { state } = useSelector(getMetric)
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = (event: any) => {
     setAnchorEl(null);
-    console.log(event.currentTarget.textContent, 'close')
+    // state.MetricReducer.metric = event.currentTarget.textContent
+    props = event.currentTarget.textContent
+    dispatch(actions.GetTheMetric(props))
+    // console.log(event.currentTarget.textContent, 'close', props, 'props')
+    console.log(state, "newly changed state")
   };
 
   return (
@@ -55,5 +56,14 @@ export default function SimpleMenu() {
     </div>
   );
 }
+
+const mapStateToProps = (state: IState) => {
+
+  return {
+    metric: state.MetricReducer.metric
+  }
+}
+
+export default connect(mapStateToProps)(SimpleMenu)
 
 
