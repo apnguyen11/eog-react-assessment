@@ -27,13 +27,11 @@ query($input: MeasurementQuery!) {
 `;
 
 const getMeasurement = (state: IState) => {
-  const { metric, at, value, unit } = state.getMeasurements;
-  console.log(state, "this is the state for getMeasurements")
+// //   const { metric, at, value, unit } = state.getMeasurements;
+//   console.log(state, "this is the state for getMeasurements")
+const metricSelected = state.MetricReducer.metric
   return {
-    metric,
-    at,
-    value,
-    unit
+    metricSelected
   };
 };
 
@@ -48,19 +46,17 @@ export default () => {
 let epochTimeLast30min = Date.now() - 1800000
 
 const GetMeasurements = () => {
-   
+    const { metricSelected } = useSelector(getMeasurement);
     const input = {
-        metricName: "waterTemp",
+        metricName: `${metricSelected}`,
         after: epochTimeLast30min
-   };
+    };
   
   const dispatch = useDispatch();
-
-//   const metricName = "waterTemp"
-  const { metric, at, value, unit } = useSelector(getMeasurement);
+  
   const [result] = useQuery({
     query,
-    
+    pollInterval: 1300,
     variables: {
         input
     },
@@ -79,7 +75,7 @@ const GetMeasurements = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-//   console.log(data.getMeasurements, 'watertemp data')
+//   console.log(data, 'new data')
 //   console.log(new Date(at).toLocaleTimeString(), "local time")
 
   //return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;

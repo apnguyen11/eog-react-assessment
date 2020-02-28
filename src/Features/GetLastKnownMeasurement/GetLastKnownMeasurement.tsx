@@ -5,9 +5,7 @@ import { Provider, createClient, useQuery } from 'urql';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '../../components/Chip';
 import { IState } from '../../store';
-import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  } from 'recharts';
+
 
 
 const client = createClient({
@@ -27,12 +25,15 @@ query($metricName: String!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
-  console.log(state, 'get last known measurements state')
+//   console.log(state, 'get last known measurements state')
+  const metricSelected = state.MetricReducer.metric
+    
   return {
     metric,
     at,
     value,
-    unit
+    unit,
+    metricSelected
   };
 };
 
@@ -47,17 +48,16 @@ export default () => {
 
 const GetLastKnownMeasurement = () => {
  
-  
   const dispatch = useDispatch();
-
-  const metricName = "waterTemp"
-  const { metric, at, value, unit } = useSelector(getMeasurement);
+  const { metric, value, unit, metricSelected } = useSelector(getMeasurement);
+  const metricName = `${metricSelected}`
+  
   const [result] = useQuery({
     query,
     variables: {
         metricName
     },
-    // pollInterval: 1300,
+    pollInterval: 1300,
     requestPolicy: 'network-only'
   });
   const { fetching, data, error } = result;
@@ -74,6 +74,6 @@ const GetLastKnownMeasurement = () => {
 
   if (fetching) return <LinearProgress />;
 //   console.log(data, 'last known measurement data')
-  return <Chip label={`Metric: ${metric} Value: ${value} ${unit}`} />;
+  return <Chip label={`Metric: ${metricSelected} Value: ${value} ${unit}`} />;
      
 };
