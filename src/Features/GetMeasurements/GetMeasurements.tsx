@@ -27,8 +27,6 @@ query($input: MeasurementQuery!) {
 `;
 
 const getMeasurement = (state: IState) => {
-// //   const { metric, at, value, unit } = state.getMeasurements;
-//   console.log(state, "this is the state for getMeasurements")
 const metricSelected = state.MetricReducer.metric
   return {
     metricSelected
@@ -75,10 +73,6 @@ const GetMeasurements = () => {
   }, [dispatch, data, error]);
 
   if (fetching) return <LinearProgress />;
-//   console.log(data, 'new data')
-//   console.log(new Date(at).toLocaleTimeString(), "local time")
-
-  //return <Chip label={`Metric: ${metric} || Time: ${new Date(at).toLocaleTimeString()} || Value: ${value} || Unit: ${unit}`} />;
   return (
  
         <LineChart

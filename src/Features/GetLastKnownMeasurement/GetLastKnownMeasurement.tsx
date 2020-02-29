@@ -3,14 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './reducer';
 import { Provider, createClient, useQuery } from 'urql';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Chip from '../../components/Chip';
 import { IState } from '../../store';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -45,7 +41,6 @@ query($metricName: String!) {
 
 const getMeasurement = (state: IState) => {
   const { metric, at, value, unit } = state.getLastKnownMeasurement;
-//   console.log(state, 'get last known measurements state')
   const metricSelected = state.MetricReducer.metric
     
   return {
@@ -91,9 +86,7 @@ const GetLastKnownMeasurement = () => {
    
     dispatch(actions.lastKnownMeasurementDataReceived(getLastKnownMeasurement));
   }, [dispatch, data, error]);
-
   if (fetching) return <LinearProgress />;
-//   console.log(data, 'last known measurement data')
   return (
     <Card className={classes.root}>
         <CardContent>
@@ -106,8 +99,5 @@ const GetLastKnownMeasurement = () => {
         </CardContent>
       
     </Card>
-  )
-  
-  //<Chip label={`Metric: ${metricSelected} Value: ${value} ${unit}`} />;
-     
+  ) 
 };
