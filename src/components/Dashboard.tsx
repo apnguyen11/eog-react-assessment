@@ -5,8 +5,6 @@ import GetLastKnownMeasurements from '../Features/GetLastKnownMeasurement/GetLas
 import GetMeasurements from '../Features/GetMeasurements/GetMeasurements'
 import DropDown from './DropDown/DropDown'
 
-
-
 const useStyles = makeStyles({
     root: {
       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -19,11 +17,7 @@ const useStyles = makeStyles({
     },
   });
 
-interface Props {
-    // text: string;
-}
-
- export const DashBoard: React.FC<Props> = () => {
+ export const DashBoard: React.FC = () => {
     const classes = useStyles();
     return (
      
