@@ -82,11 +82,11 @@ const GetMeasurements = () => {
   return (
  
         <LineChart
-        width={1200}
-        height={600}
+        width={1300}
+        height={520}
         data={data.getMeasurements}
         margin={{
-            top: 5, right: 30, left: 20, bottom: 5,
+            top: 10, right: 30, left: 50, bottom: 5,
         }}
         >
         <CartesianGrid strokeDasharray="9 9" />
@@ -100,7 +100,7 @@ const GetMeasurements = () => {
         <YAxis name="Metric" />
         <Tooltip labelFormatter={t => new Date(t).toLocaleString()} />
         <Legend />
-        <Line type="monotone" name="Water Temperature" dataKey="value" stroke="#8884d8"  />
+        <Line type="monotone" name={metricSelected} dataKey="value" stroke="#8884d8"  />
         </LineChart>
         
   
